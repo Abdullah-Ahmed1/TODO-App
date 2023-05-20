@@ -16,6 +16,7 @@ module.exports = {
     try {
       const tasks = getAllTasks();
       return res.status(200).send({
+        tasks,
         message: "Task created successfully",
       });
     } catch (err) {
