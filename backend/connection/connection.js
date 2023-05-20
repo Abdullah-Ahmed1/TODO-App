@@ -9,3 +9,10 @@ try{
 }catch(err){
     console.log(err)
 }
+
+
+
+
+module.exports = mongoose.connect;
+
+require("../models/todo.model");
