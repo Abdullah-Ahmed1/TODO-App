@@ -7,12 +7,11 @@ import MuiCheckbox from '@mui/material/Checkbox';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
-function Checkbox({ label, icon, checkedIcon }) {
+function Checkbox({  icon, checkedIcon }) {
   return (
     <FormControlLabel
-      label={label}
       control={
-        <MuiCheckbox defaultChecked icon={icon} checkedIcon={checkedIcon} />
+        <MuiCheckbox defaultChecked icon={icon} checkedIcon={checkedIcon}  sx = {{color:'rgba(143, 211,249,0.9)', '&.Mui-checked':{color:'rgba(143, 211,249,0.9)'}}} />
       }
     />
   );
@@ -21,14 +20,14 @@ function Checkbox({ label, icon, checkedIcon }) {
 const ViewAllTodos = () => {
   return (
     <>
-      <Paper elevation={3}  sx={{ width: "40%", backgroundColor:'rgba(255, 255, 255,0.7)',padding:"10px 20px"}}>
+      <Paper elevation={3}  sx={{ backgroundColor:'rgba(255, 255, 255,0.7)',padding:"10px 20px"}}>
         <Grid container flexDirection={'column'} sx = {{color:"black"}}>
           <Grid container  justifyContent={'space-between'} alignItems={'center'} sx ={{padding:"10px 0px"}} >
             <Grid container   alignItems={'center'}>
             <Grid>
             <Checkbox
               icon={<RadioButtonUncheckedIcon />}
-              checkedIcon={<CheckCircleOutlineIcon />}
+              checkedIcon={<CheckCircleOutlineIcon sx = {{color:'black'}} />}
             />
             </Grid>
             <Grid>
@@ -43,8 +42,8 @@ const ViewAllTodos = () => {
             <Grid container   alignItems={'center'}>
             <Grid>
             <Checkbox
-              icon={<RadioButtonUncheckedIcon />}
-              checkedIcon={<CheckCircleOutlineIcon />}
+              icon={<RadioButtonUncheckedIcon   />}
+              checkedIcon={<CheckCircleOutlineIcon  color="black" sx = {{color:'black'}} />}
             />
             </Grid>
             <Grid>
@@ -52,7 +51,7 @@ const ViewAllTodos = () => {
             </Grid>
             </Grid>
             <Grid>
-              <DragIndicatorIcon/>
+              <DragIndicatorIcon sx = {{cursor:"pointer"}}/>
             </Grid>
           </Grid>
           
