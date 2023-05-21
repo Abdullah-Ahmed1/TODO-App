@@ -13,12 +13,11 @@ module.exports = {
       });
     }
   },
-  ViewAllTasks: (req, res) => {
+  ViewAllTasks: async(req, res) => {
     try {
-      const tasks = getAllTasks() ;
+      const tasks = await getAllTasks() ;
       return res.status(200).send({
         tasks,
-        message: "Task created successfully",
       });
     } catch (err) {
       return res.status(400).send({

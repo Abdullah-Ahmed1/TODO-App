@@ -13,6 +13,7 @@ module.exports = {
   getAllTasks: async () => {
     try {
       const tasks = await Todo.find({});
+      console.log(tasks)
       return tasks;
     } catch (err) {
       console.log(err);
