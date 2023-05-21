@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2';
 import './App.css'
-import ViewAllTodos from './components/viewAllTodos/viewAllTodos';
-import CreateTodo from './components/createTodo/createTodo';
+import {ViewAllTodos} from './components/viewAllTodos';
+import {CreateTodo} from './components/createTodo';
 
 function App() {
   const [count, setCount] = useState(0)

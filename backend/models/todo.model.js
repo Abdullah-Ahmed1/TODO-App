@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 var todoSchema = new mongoose.Schema({
-  Task: {
+  task: {
     type: String,
   },
-  Completed: {
+  completed: {
     type: Boolean,
   },
-  CompletedTime: {
+  completedTime: {
     type: Date,
   },
-  CreationTime: {
+  creationTime: {
     type: Date,
   },
 });

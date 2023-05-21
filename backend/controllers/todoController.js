@@ -1,6 +1,7 @@
 const { getAllTasks, createTask, deleteTask } = require("../dao/todoDao");
 module.exports = {
   createTask: (req, res) => {
+    console.log("reacheddddddddddddddddddddddd create task")
     try {
       createTask(req.body);
       return res.status(201).send({
@@ -14,7 +15,7 @@ module.exports = {
   },
   ViewAllTasks: (req, res) => {
     try {
-      const tasks = getAllTasks();
+      const tasks = getAllTasks() ;
       return res.status(200).send({
         tasks,
         message: "Task created successfully",

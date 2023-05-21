@@ -5,7 +5,8 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import MuiCheckbox from '@mui/material/Checkbox';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import PopUpMenu from "./parts/popUpMenu";
+
 
 function Checkbox({  icon, checkedIcon }) {
   return (
@@ -17,7 +18,7 @@ function Checkbox({  icon, checkedIcon }) {
   );
 }
 
-const ViewAllTodos = () => {
+export const ViewAllTodos = () => {
   return (
     <>
       <Paper elevation={3}  sx={{ backgroundColor:'rgba(255, 255, 255,0.7)',padding:"10px 20px"}}>
@@ -35,23 +36,8 @@ const ViewAllTodos = () => {
             </Grid>
             </Grid>
             <Grid>
-              <DragIndicatorIcon/>
-            </Grid>
-          </Grid>
-          <Grid container  justifyContent={'space-between'} alignItems={'center'} sx ={{padding:"10px 0px"}} >
-            <Grid container   alignItems={'center'}>
-            <Grid>
-            <Checkbox
-              icon={<RadioButtonUncheckedIcon   />}
-              checkedIcon={<CheckCircleOutlineIcon  color="black" sx = {{color:'black'}} />}
-            />
-            </Grid>
-            <Grid>
-              <h3 style={{color:"black"}}>Running</h3>
-            </Grid>
-            </Grid>
-            <Grid>
-              <DragIndicatorIcon sx = {{cursor:"pointer"}}/>
+              {/* <DragIndicatorIcon/> */}
+              <PopUpMenu/>
             </Grid>
           </Grid>
           
@@ -61,4 +47,3 @@ const ViewAllTodos = () => {
   );
 };
 
-export default ViewAllTodos;

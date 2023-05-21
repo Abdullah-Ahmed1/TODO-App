@@ -1,7 +1,7 @@
 import React from 'react'
-import InputAccordion from './accordion'
+import {InputAccordion} from './accordion'
 
-const CreateTodo = () => {
+export const CreateTodo = () => {
   return (
     <> 
       <InputAccordion/>
@@ -9,4 +9,3 @@ const CreateTodo = () => {
   )
 }
 
-export default CreateTodo
