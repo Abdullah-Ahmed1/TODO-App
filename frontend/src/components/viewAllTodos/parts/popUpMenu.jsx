@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
@@ -7,10 +6,10 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import IconButton from '@mui/material/IconButton';
-
+import axios from 'axios'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
-export default function () {
+export default function ({id,refreshTodos}) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -18,12 +17,24 @@ export default function () {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
+  const handleClose = ()=>{
+    setOpen(false)
+  }
 
-    setOpen(false);
+  const handleDelete = (event) => {
+    // if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    //   return;
+    // }
+    axios.delete(`http://localhost:5000/delete/${id}`)
+    .then(()=>{
+      refreshTodos()
+      setOpen(false);
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+    
   };
 
   function handleListKeyDown(event) {
@@ -74,7 +85,7 @@ export default function () {
                   placement === 'bottom-start' ? 'left top' : 'left bottom',
               }}
             >
-              <Paper>
+              <Paper sx = {{backgroundColor:"white"}}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}
@@ -82,9 +93,8 @@ export default function () {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                   
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

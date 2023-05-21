@@ -17,14 +17,25 @@ function App() {
       console.log(err)
     })
   },[])
+
+  const refreshTodos=()=>{
+    console.log("reaachedddddddd-------!!!>")
+    axios.get('http://localhost:5000/view')
+    .then((res)=>{
+      console.log(res.data.tasks)
+      setTodos(res.data.tasks)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
   return (
     <Grid container flexDirection={'column'} sx={{height:'97vh'}}  justifyContent={'center'} alignItems={'center'}>
       <Grid  sx = {{width:"500px",marginBottom:"10px"}}>
-      <CreateTodo/>
+      <CreateTodo refreshTodos = {refreshTodos}  />
         
       </Grid>
       <Grid sx = {{width:"500px"}}>
-      <ViewAllTodos  todos = {todos} />
+      <ViewAllTodos  todos = {todos} refreshTodos = {refreshTodos} />
 
       </Grid>
     </Grid>

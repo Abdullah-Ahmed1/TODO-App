@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
 import axios from 'axios';
-export function InputAccordion() {
+export function InputAccordion({refreshTodos}) {
     const [todo,setTodo] = useState('')
 
     const handleSubmit =  async()=>{
@@ -20,7 +20,9 @@ export function InputAccordion() {
             creationTime:new Date()
         }
         try{
+            setTodo('')
             await axios.post('http://localhost:5000/create',data)
+            refreshTodos()
         }catch(err){
             console.log(err)
         }

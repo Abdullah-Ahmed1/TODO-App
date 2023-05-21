@@ -1,10 +1,10 @@
 import React from 'react'
 import {InputAccordion} from './accordion'
 
-export const CreateTodo = () => {
+export const CreateTodo = ({refreshTodos}) => {
   return (
     <> 
-      <InputAccordion/>
+      <InputAccordion  refreshTodos = {refreshTodos}/>
     </>
   )
 }

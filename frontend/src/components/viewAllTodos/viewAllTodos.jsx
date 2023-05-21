@@ -25,7 +25,7 @@ function Checkbox({ icon, checkedIcon }) {
   );
 }
 
-export const ViewAllTodos = ({ todos }) => {
+export const ViewAllTodos = ({ todos,refreshTodos }) => {
   return (
     <>
       <Paper
@@ -33,6 +33,9 @@ export const ViewAllTodos = ({ todos }) => {
         sx={{
           backgroundColor: "rgba(255, 255, 255,0.7)",
           padding: "10px 20px",
+          maxHeight:"500px",
+          overflow:"scroll",
+          overflowX: 'hidden' 
         }}
       >
         <Grid container flexDirection={"column"} sx={{ color: "black" }}>
@@ -61,7 +64,7 @@ export const ViewAllTodos = ({ todos }) => {
                 </Grid>
                 <Grid>
                   {/* <DragIndicatorIcon/> */}
-                  <PopUpMenu />
+                  <PopUpMenu id = {item._id} refreshTodos = {refreshTodos}/>
                 </Grid>
               </Grid>
             );
