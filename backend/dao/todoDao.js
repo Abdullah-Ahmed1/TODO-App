@@ -1,6 +1,4 @@
-// const Mongoose = require("mongoose");
-// const Todo = Mongoose.model("TODO");
-const Todo = require('../models/todo.model');
+const Todo = require("../models/todo.model");
 module.exports = {
   createTodo: async (body) => {
     try {
@@ -41,14 +39,18 @@ module.exports = {
   },
   updateTodoCompleted: async (taskId, completed) => {
     try {
-      if(completed ===true){
-        await Todo.findByIdAndUpdate({ _id: taskId }, { completed: completed,completedTime:new Date() });
-   
-      }else{
-        await Todo.findByIdAndUpdate({ _id: taskId }, { completed: completed,completedTime:null });
-   
+      if (completed === true) {
+        await Todo.findByIdAndUpdate(
+          { _id: taskId },
+          { completed: completed, completedTime: new Date() }
+        );
+      } else {
+        await Todo.findByIdAndUpdate(
+          { _id: taskId },
+          { completed: completed, completedTime: null }
+        );
       }
-       } catch (err) {
+    } catch (err) {
       console.log(err);
     }
   },
