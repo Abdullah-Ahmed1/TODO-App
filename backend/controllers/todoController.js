@@ -1,9 +1,9 @@
-const { getAllTasks, createTask, deleteTask } = require("../dao/todoDao");
+const { getAllTasks, createTodo, removeTodo,searchTodo,updateTodoCompleted } = require("../dao/todoDao");
 module.exports = {
   createTask: (req, res) => {
     console.log("reacheddddddddddddddddddddddd create task")
     try {
-      createTask(req.body);
+      createTodo(req.body);
       return res.status(201).send({
         message: "Task created successfully",
       });
@@ -13,7 +13,7 @@ module.exports = {
       });
     }
   },
-  ViewAllTasks: async(req, res) => {
+  ViewAllTodos: async(req, res) => {
     try {
       const tasks = await getAllTasks() ;
       return res.status(200).send({
@@ -25,16 +25,16 @@ module.exports = {
       });
     }
   },
-  deleteTask: (req, res) => {
+  deleteTodo: (req, res) => {
     try {
-      const id = req.params.id;
-      if (!id)
+      const taskId = req.params.taskId;
+      if (!taskId)
         return res.status(400).send({
           message: "id should not be empty",
         });
 
-      deleteTask(id);
-
+      removeTodo(taskId);
+        //condition for finding task to delete and check if it exist
       return res.status(200).send({
         message:"task deleted successfully"
       });
@@ -44,4 +44,28 @@ module.exports = {
       });
     }
   },
+  completeTodo: async(req,res)=>{
+    try{
+      const taskId = req.params.taskId;
+      const completeData = req.body.complete
+      if (!taskId)
+      return res.status(400).send({
+        message: "id should not be empty",
+      });
+      const searchedTodo = await searchTodo(taskId)
+      if(!searchedTodo) return res.status(400).send({
+        message: "todo not found",
+      })
+
+      await updateTodoCompleted(taskId,completeData)
+      return res.status(200).send({
+        message: "updated successfully",
+      })
+
+    }catch(err){
+      return res.status(400).send({
+        message: "Something went wrong",
+      });
+    }
+  }
 };
