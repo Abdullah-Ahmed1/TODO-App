@@ -7,9 +7,9 @@ const {
   getAllTodos,
 } = require("../dao/todoDao");
 module.exports = {
-  createTodo: (req, res) => {
+  createTodo: async(req, res) => {
     try {
-      createTodo(req.body);
+      await createTodo(req.body);
       return res.status(201).send({
         message: "Task created successfully",
       });

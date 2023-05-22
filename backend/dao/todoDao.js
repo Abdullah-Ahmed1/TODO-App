@@ -1,5 +1,6 @@
-const Mongoose = require("mongoose");
-const Todo = Mongoose.model("TODO");
+// const Mongoose = require("mongoose");
+// const Todo = Mongoose.model("TODO");
+const Todo = require('../models/todo.model');
 module.exports = {
   createTodo: async (body) => {
     try {

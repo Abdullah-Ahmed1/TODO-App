@@ -13,4 +13,6 @@ var todoSchema = new mongoose.Schema({
     type: Date,
   },
 });
-mongoose.model("TODO", todoSchema);
+const Todo = mongoose.model('TODO', todoSchema);
+
+module.exports = Todo;
