@@ -14,7 +14,6 @@ function App() {
     axios
       .get("http://localhost:5000/view")
       .then((res) => {
-        // console.log(res.data.tasks);
         setTodos(res.data.tasks);
       })
       .catch((err) => {
@@ -26,7 +25,6 @@ function App() {
     axios
       .get("http://localhost:5000/view")
       .then((res) => {
-        // console.log(res.data.tasks);
         setTodos(res.data.tasks);
       })
       .catch((err) => {
@@ -36,7 +34,7 @@ function App() {
   return (
     <Grid
       container
-      data-testid="todo1"
+      data-testid="todo-home"
       flexDirection={"column"}
       sx={{ height: { xs: "118vh", lg: "97vh" } }}
       alignItems={"center"}

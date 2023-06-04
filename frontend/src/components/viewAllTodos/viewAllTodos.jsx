@@ -38,7 +38,6 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
 
   const handleChange = (event, id) => {
     setOpenBackdrop(true);
-    // console.log(event.target.checked);
     axios
       .put(`http://localhost:5000/complete/${id}`, {
         completed: event.target.checked,
@@ -69,7 +68,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
           overflow: 'auto',
           overflowX: "hidden",
           scrollbarWidth: 'thin',
-        // scrollbarColor: 'rgba(155, 155, 155, 0.5) transparent',
+
           
         }}
       >
@@ -104,7 +103,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
                        </Grid>
                     </Grid>
                     <Grid>
-                      <PopUpMenu id={item._id} refreshTodos={refreshTodos} />
+                      <PopUpMenu todoId={item._id} refreshTodos={refreshTodos} />
                     </Grid>
                   </Grid>
                 );

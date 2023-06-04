@@ -4,7 +4,7 @@ import {InputAccordion} from './parts'
 export const CreateTodo = ({refreshTodos}) => {
   return (
     <> 
-      <InputAccordion  refreshTodos = {refreshTodos}/>
+      <InputAccordion  data-testid="accordion" refreshTodos = {refreshTodos}/>
     </>
   )
 }

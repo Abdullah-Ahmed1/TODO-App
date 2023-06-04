@@ -12,7 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
-export function PopUpMenu ({ id, refreshTodos }) {
+export function PopUpMenu({ todoId, refreshTodos }) {
   const [open, setOpen] = React.useState(false);
   const [openBackdrop, setOpenBackdrop] = useState(false);
 
@@ -29,13 +29,14 @@ export function PopUpMenu ({ id, refreshTodos }) {
   const handleDelete = (event) => {
     setOpenBackdrop(true);
     axios
-      .delete(`http://localhost:5000/delete/${id}`)
+      .delete(`http://localhost:5000/delete/${todoId}`)
       .then(() => {
         refreshTodos();
         setOpen(false);
-        setOpenBackdrop(true);
+        setOpenBackdrop(false);
       })
       .catch((err) => {
+        setOpenBackdrop(false);
         console.log(err);
       });
   };
@@ -48,8 +49,6 @@ export function PopUpMenu ({ id, refreshTodos }) {
       setOpen(false);
     }
   }
-
-  // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
