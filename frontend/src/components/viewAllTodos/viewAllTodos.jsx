@@ -8,6 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import MuiCheckbox from "@mui/material/Checkbox";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import PopUpMenu from "./parts/popUpMenu";
+import Typography from '@mui/material/Typography';
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -97,8 +98,10 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
                         />
                       </Grid>
                       <Grid>
-                        <h3>{item.task}</h3>
-                      </Grid>
+                        <Typography> 
+                        {item.task}
+                        </Typography>
+                       </Grid>
                     </Grid>
                     <Grid>
                       <PopUpMenu id={item._id} refreshTodos={refreshTodos} />

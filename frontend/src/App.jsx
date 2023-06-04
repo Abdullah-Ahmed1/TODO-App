@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import "./App.css";
@@ -23,7 +23,6 @@ function App() {
   }, []);
 
   const refreshTodos = () => {
-    console.log("reaachedddddddd-------!!!>");
     axios
       .get("http://localhost:5000/view")
       .then((res) => {
@@ -37,19 +36,27 @@ function App() {
   return (
     <Grid
       container
-      data-testid = "todo1"
+      data-testid="todo1"
       flexDirection={"column"}
-      sx={{ height:{xs :"118vh",lg :"97vh"}  }}
-      // justifyContent={"center"}
+      sx={{ height: { xs: "118vh", lg: "97vh" } }}
       alignItems={"center"}
     >
-      <Grid container justifyContent={'center'} alignItems={'center'} sx={{ marginBottom: "10px",marginTop:"100px" }}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Grid
+        container
+        justifyContent={"center"}
+        alignItems={"center"}
+        sx={{ marginBottom: "10px", marginTop: "100px" }}
+      >
+        <Avatar
+          alt="Remy Sharp"
+          src="/static/images/avatar/1.jpg"
+          sx={{ width: 56, height: 56, backgroundColor: "green" }}
+        />
       </Grid>
-      <Grid xs = {12} sm={12} md={6} lg ={5}  sx={{ marginBottom: "10px" }}>
+      <Grid xs={12} sm={12} md={6} lg={5} sx={{ marginBottom: "10px" }}>
         <CreateTodo refreshTodos={refreshTodos} />
       </Grid>
-      <Grid xs = {12} sm={12} md={6} lg ={5} >
+      <Grid xs={12} sm={12} md={6} lg={5}>
         <ViewAllTodos todos={todos} refreshTodos={refreshTodos} />
       </Grid>
     </Grid>
