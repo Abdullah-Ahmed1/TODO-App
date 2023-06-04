@@ -7,7 +7,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import MuiCheckbox from "@mui/material/Checkbox";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import PopUpMenu from "./parts/popUpMenu";
+import {PopUpMenu} from "./parts";
 import Typography from '@mui/material/Typography';
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -38,7 +38,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
 
   const handleChange = (event, id) => {
     setOpenBackdrop(true);
-    console.log(event.target.checked);
+    // console.log(event.target.checked);
     axios
       .put(`http://localhost:5000/complete/${id}`, {
         completed: event.target.checked,

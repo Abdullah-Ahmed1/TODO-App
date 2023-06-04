@@ -1,2 +1,2 @@
 export * from './createTodo'
-export * from './accordion'
+export * from './parts/accordion'

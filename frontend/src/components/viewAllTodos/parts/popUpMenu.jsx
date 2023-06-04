@@ -12,7 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
-export default function ({ id, refreshTodos }) {
+export function PopUpMenu ({ id, refreshTodos }) {
   const [open, setOpen] = React.useState(false);
   const [openBackdrop, setOpenBackdrop] = useState(false);
 

@@ -19,13 +19,6 @@ describe("Tests for View All Todos component", () => {
   });
 
   it("should display todo content, if todo array is not empty", async () => {
-    //   const mockResponse = {
-    //     data: {
-    //       tasks: ['Task 1', 'Task 2', 'Task 3'],
-    //     },
-    //   };
-    //   axios.get.mockResolvedValue(mockResponse);
-
     await act(async () => {
       render(
         <ViewAllTodos

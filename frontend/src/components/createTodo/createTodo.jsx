@@ -1,5 +1,5 @@
 import React from 'react'
-import {InputAccordion} from './accordion'
+import {InputAccordion} from './parts'
 
 export const CreateTodo = ({refreshTodos}) => {
   return (
