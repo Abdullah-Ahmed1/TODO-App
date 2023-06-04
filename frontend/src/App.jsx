@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import "./App.css";
@@ -36,18 +37,19 @@ function App() {
   return (
     <Grid
       container
+      data-testid = "todo1"
       flexDirection={"column"}
-      sx={{ height: "97vh" }}
-      justifyContent={"center"}
+      sx={{ height:{xs :"118vh",lg :"97vh"}  }}
+      // justifyContent={"center"}
       alignItems={"center"}
     >
-      <Grid sx={{ marginBottom: "10px" }}>
+      <Grid container justifyContent={'center'} alignItems={'center'} sx={{ marginBottom: "10px",marginTop:"100px" }}>
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       </Grid>
-      <Grid sx={{ width: "500px", marginBottom: "10px" }}>
+      <Grid xs = {12} sm={12} md={6} lg ={5}  sx={{ marginBottom: "10px" }}>
         <CreateTodo refreshTodos={refreshTodos} />
       </Grid>
-      <Grid sx={{ width: "500px" }}>
+      <Grid xs = {12} sm={12} md={6} lg ={5} >
         <ViewAllTodos todos={todos} refreshTodos={refreshTodos} />
       </Grid>
     </Grid>

@@ -1,4 +1,5 @@
 import React from "react";
+import './viewAllTodos.css'
 import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -17,7 +18,6 @@ function Checkbox({ icon, checkedIcon, checked, handleChange }) {
     <FormControlLabel
       control={
         <MuiCheckbox
-          // defaultChecked
           checked={checked}
           onChange={handleChange}
           icon={icon}
@@ -59,24 +59,27 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Paper
+      className="scroller"
         elevation={3}
         sx={{
           backgroundColor: "rgba(255, 255, 255,0.7)",
           padding: "10px 20px",
-          maxHeight: "500px",
-          overflow: "scroll",
+          maxHeight: "320px",
+          overflow: 'auto',
           overflowX: "hidden",
-          "-webkit-scrollbar-": { width: "10px" },
-          "-webkit-scrollbar-track": { background: "#f1f1f1" },
+          scrollbarWidth: 'thin',
+        // scrollbarColor: 'rgba(155, 155, 155, 0.5) transparent',
+          
         }}
       >
         <Grid container flexDirection={"column"} sx={{ color: "black" }}>
           {todos ? (
             todos.length > 0 ? (
-              todos.map((item) => {
+              todos.map((item, index) => {
                 return (
                   <Grid
-                    key={item._id}
+                    data-testid="show-todos"
+                    key={index}
                     container
                     justifyContent={"space-between"}
                     alignItems={"center"}
@@ -98,7 +101,6 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
                       </Grid>
                     </Grid>
                     <Grid>
-                      {/* <DragIndicatorIcon/> */}
                       <PopUpMenu id={item._id} refreshTodos={refreshTodos} />
                     </Grid>
                   </Grid>
@@ -106,7 +108,6 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
               })
             ) : (
               <h2>No Todos</h2>
-              
             )
           ) : (
             <CircularProgress />
