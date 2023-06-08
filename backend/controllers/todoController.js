@@ -1,11 +1,11 @@
 const {
-  getAllTasks,
+  // getAllTasks,
   createTodo,
   removeTodo,
   searchTodo,
   updateTodoCompleted,
   getAllTodos,
-} = require("../dao/todoDao");
+} = require("../services/todoService");
 module.exports = {
   createTodo: async(req, res) => {
     try {
@@ -14,7 +14,7 @@ module.exports = {
         message: "Task created successfully",
       });
     } catch (err) {
-      return res.status(400).send({
+      return res.status(500).send({
         message: "Something went wrong",
       });
     }
@@ -26,7 +26,7 @@ module.exports = {
         tasks,
       });
     } catch (err) {
-      return res.status(400).send({
+      return res.status(500).send({
         message: "Something went wrong",
       });
     }
@@ -40,18 +40,16 @@ module.exports = {
         });
       const searchedTodo = await searchTodo(taskId);
       if (!searchedTodo)
-        return res.status(400).send({
+        return res.status(404).send({
           message: "todo not found",
         });
-
       await removeTodo(taskId);
-
-      //condition for finding task to delete and check if it exist
+      
       return res.status(200).send({
         message: "task deleted successfully",
       });
     } catch (err) {
-      return res.status(400).send({
+      return res.status(500).send({
         message: "Something went wrong",
       });
     }
@@ -66,7 +64,7 @@ module.exports = {
         });
       const searchedTodo = await searchTodo(taskId);
       if (!searchedTodo)
-        return res.status(400).send({
+        return res.status(404).send({
           message: "todo not found",
         });
 
@@ -75,7 +73,7 @@ module.exports = {
         message: "updated successfully",
       });
     } catch (err) {
-      return res.status(400).send({
+      return res.status(500).send({
         message: "Something went wrong",
       });
     }

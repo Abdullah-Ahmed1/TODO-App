@@ -9,7 +9,7 @@ import axios from "axios";
 
 function App() {
   const [todos, setTodos] = useState(null);
-  console.log("url is : ",import.meta.env.VITE_REACT_APP_BASE_URL)
+  
   useEffect(() => {
     refreshTodos()
   }, []);

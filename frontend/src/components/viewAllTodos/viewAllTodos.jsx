@@ -35,7 +35,6 @@ function Checkbox({ icon, checkedIcon, checked, handleChange }) {
 
 export const ViewAllTodos = ({ todos, refreshTodos }) => {
   const [openBackdrop, setOpenBackdrop] = useState(false);
-
   const handleChange = (event, id) => {
     setOpenBackdrop(true);
     axios
