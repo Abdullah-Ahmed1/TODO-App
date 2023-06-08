@@ -9,21 +9,14 @@ import axios from "axios";
 
 function App() {
   const [todos, setTodos] = useState(null);
-
+  console.log("url is : ",import.meta.env.VITE_REACT_APP_BASE_URL)
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/view")
-      .then((res) => {
-        setTodos(res.data.tasks);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    refreshTodos()
   }, []);
 
   const refreshTodos = () => {
     axios
-      .get("http://localhost:5000/view")
+      .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/view`)
       .then((res) => {
         setTodos(res.data.tasks);
       })

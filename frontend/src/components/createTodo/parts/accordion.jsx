@@ -25,7 +25,7 @@ export function InputAccordion({ refreshTodos }) {
     try {
       setOpenBackdrop(true);
       setTodo("");
-      await axios.post("http://localhost:5000/create", data);
+      await axios.post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/create`, data);
       await refreshTodos();
       setOpenBackdrop(false);
     } catch (err) {

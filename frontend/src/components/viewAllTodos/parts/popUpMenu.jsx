@@ -29,7 +29,7 @@ export function PopUpMenu({ todoId, refreshTodos }) {
   const handleDelete = (event) => {
     setOpenBackdrop(true);
     axios
-      .delete(`http://localhost:5000/delete/${todoId}`)
+      .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)
       .then(() => {
         refreshTodos();
         setOpen(false);

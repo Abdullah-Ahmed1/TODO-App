@@ -39,7 +39,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
   const handleChange = (event, id) => {
     setOpenBackdrop(true);
     axios
-      .put(`http://localhost:5000/complete/${id}`, {
+      .put(`${import.meta.env.VITE_REACT_APP_BASE_URL}/complete/${id}`, {
         completed: event.target.checked,
       })
       .then((res) => {
