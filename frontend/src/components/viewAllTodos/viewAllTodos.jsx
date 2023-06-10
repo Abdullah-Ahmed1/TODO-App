@@ -1,19 +1,20 @@
 import React from "react";
+import axios from "axios";
 import "./viewAllTodos.css";
-import { useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Unstable_Grid2";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import MuiCheckbox from "@mui/material/Checkbox";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { PopUpMenu } from "./parts";
-import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import { useState, useEffect } from "react";
+import MuiAlert from "@mui/material/Alert";
 import Backdrop from "@mui/material/Backdrop";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import Grid from "@mui/material/Unstable_Grid2";
+import MuiCheckbox from "@mui/material/Checkbox";
+import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-import axios from "axios";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -38,13 +39,11 @@ function Checkbox({ icon, checkedIcon, checked, handleChange }) {
 }
 
 export const ViewAllTodos = ({ todos, refreshTodos }) => {
-  console.log("todo is  : ", todos);
-  const [openBackdropComplete, setOpenBackdropComplete] = useState(false);
-  const [openPopUp, setOpenPopUp] = React.useState(false);
   const [todoTemp, setTodoTemp] = useState(null);
-
+  const [openPopUp, setOpenPopUp] = React.useState(false);
+  const [openSnackDelete, setOpenSnackDelete] = useState(false);
   const [openBackdropDelete, setOpenBackdropDelete] = useState(false);
-  const [openSnack, setOpenSnack] = useState(false);
+  const [openBackdropComplete, setOpenBackdropComplete] = useState(false);
 
   const handleChange = (event, id) => {
     setOpenBackdropComplete(true);
@@ -65,7 +64,6 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
     setOpenPopUp(false);
   };
 
- 
   const handleTogglePopUp = () => {
     setOpenPopUp((prevOpen) => !prevOpen);
   };
@@ -78,23 +76,20 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
       setOpenPopUp(false);
     }
   }
-  const handleCloseSnack = (event, reason) => {
+  const handleCloseSnackDelete = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
-    setOpenSnack(false);
+    setOpenSnackDelete(false);
   };
 
   const handleDelete = (todoId) => {
-    setTodoTemp(todoTemp.filter(item=> item._id !== todoId))
-    console.log("reached-----");
-
+    setTodoTemp(todoTemp.filter((item) => item._id !== todoId));
     setOpenBackdropDelete(true);
     axios
       .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)
       .then(async () => {
-         setOpenSnack(true);
+        setOpenSnackDelete(true);
         // refreshTodos(todoId);
         setOpenPopUp(false);
         setOpenBackdropDelete(false);
@@ -110,19 +105,19 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
 
   return (
     <>
-    <Snackbar
-          open={openSnack}
-          autoHideDuration={6000}
-          onClose={handleCloseSnack}
+      <Snackbar
+        open={openSnackDelete}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackDelete}
+      >
+        <Alert
+          onClose={handleCloseSnackDelete}
+          severity="success"
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={handleCloseSnack}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            This is a success message!
-          </Alert>
-        </Snackbar>
+          Todo Deleted Successfully
+        </Alert>
+      </Snackbar>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openBackdropComplete}
@@ -142,7 +137,6 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
         }}
       >
         <Grid container flexDirection={"column"} sx={{ color: "black" }}>
-          {console.log("///-///-", todoTemp)}
           {todoTemp ? (
             todoTemp.length > 0 ? (
               todoTemp.map((item, index) => {
@@ -178,8 +172,8 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
                         handleClosePopUp={handleClosePopUp}
                         openBackDropDelete={openBackdropDelete}
                         handleDelete={handleDelete}
-                        openSnack={openSnack}
-                        handleTogglePopUp = {handleTogglePopUp}
+                        // openSnack={openSnack}
+                        handleTogglePopUp={handleTogglePopUp}
                       />
                     </Grid>
                   </Grid>

@@ -1,20 +1,18 @@
 import * as React from "react";
-import { useState } from "react";
+import Button from "@mui/material/Button";
+import Backdrop from "@mui/material/Backdrop";
 import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
 import MenuIcon from "@mui/icons-material/Menu";
-import axios from "axios";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import CircularProgress from "@mui/material/CircularProgress";
 
 
-export function InputAccordion({ refreshTodos, handleSubmit,todo,handleChangeTodo ,openBackdrop}) {
+export function InputAccordion({handleSubmit,todo,handleChangeTodo ,openBackdrop}) {
   
   
   const handleKeyPress = (e) => {

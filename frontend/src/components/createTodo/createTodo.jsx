@@ -1,11 +1,23 @@
-import React from 'react'
-import {InputAccordion} from './parts'
+import React from "react";
+import { InputAccordion } from "./parts";
 
-export const CreateTodo = ({refreshTodos, handleSubmit,todo,handleChangeTodo ,openBackdrop}) => {
+export const CreateTodo = ({
+  todo,
+  refreshTodos,
+  handleSubmit,
+  openBackdrop,
+  handleChangeTodo,
+}) => {
   return (
-    <> 
-      <InputAccordion  data-testid="accordion" refreshTodos = {refreshTodos} handleSubmit = {handleSubmit} todo = {todo} handleChangeTodo={handleChangeTodo} openBackdrop={openBackdrop} />
+    <>
+      <InputAccordion
+        todo={todo}
+        data-testid="accordion"
+        refreshTodos={refreshTodos}
+        handleSubmit={handleSubmit}
+        openBackdrop={openBackdrop}
+        handleChangeTodo={handleChangeTodo}
+      />
     </>
-  )
-}
-
+  );
+};

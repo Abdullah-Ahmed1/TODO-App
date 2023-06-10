@@ -1,18 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
+import MuiAlert from "@mui/material/Alert";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
+import Backdrop from "@mui/material/Backdrop";
 import MenuList from "@mui/material/MenuList";
 import IconButton from "@mui/material/IconButton";
-import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import axios from "axios";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -23,29 +21,27 @@ export function PopUpMenu({
   openBackDropDelete,
   handleDelete,
   openPopUp,
-  handleTogglePopUp,
-  handleClosePopUp,
   handleListKeyDown,
 }) {
-
-  
+  const [menuOpen, setMenuOpen] = useState(false);
   const anchorRef = React.useRef(null);
 
-  // const handleCloseSnack = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-
-  //   setOpenSnack(false);
-  // };
-
-  const prevOpen = React.useRef(openPopUp);
-  React.useEffect(() => {
-    if (prevOpen.current === true && openPopUp === false) {
-      anchorRef.current.focus();
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
     }
 
-    prevOpen.current = openPopUp;
+    setMenuOpen(false);
+  };
+
+  const handleToggle = () => {
+    setMenuOpen((prevOpen) => !prevOpen);
+  };
+
+  React.useEffect(() => {
+    if (!openPopUp) {
+      setMenuOpen(false);
+    }
   }, [openPopUp]);
 
   return (
@@ -60,15 +56,15 @@ export function PopUpMenu({
         <IconButton
           ref={anchorRef}
           id="composition-button"
-          aria-controls={openPopUp ? "composition-menu" : undefined}
-          aria-expanded={openPopUp ? "true" : undefined}
+          aria-controls={menuOpen ? "composition-menu" : undefined}
+          aria-expanded={menuOpen ? "true" : undefined}
           aria-haspopup="true"
-          onClick={handleTogglePopUp}
+          onClick={handleToggle}
         >
           <DragIndicatorIcon />
         </IconButton>
         <Popper
-          open={openPopUp}
+          open={menuOpen}
           anchorEl={anchorRef.current}
           role={undefined}
           placement="bottom-start"
@@ -84,9 +80,9 @@ export function PopUpMenu({
               }}
             >
               <Paper sx={{ backgroundColor: "white" }}>
-                <ClickAwayListener onClickAway={handleClosePopUp}>
+                <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
-                    autoFocusItem={openPopUp}
+                    autoFocusItem={menuOpen}
                     id="composition-menu"
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
