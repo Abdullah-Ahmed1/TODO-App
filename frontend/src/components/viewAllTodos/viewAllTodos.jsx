@@ -33,7 +33,7 @@ function Checkbox({ icon, checkedIcon, checked, handleChange }) {
   );
 }
 
-export const ViewAllTodos = ({ todos, refreshTodos }) => {
+export const ViewAllTodos = ({ todos, refreshTodos,snackOpen }) => {
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const handleChange = (event, id) => {
     setOpenBackdrop(true);
@@ -102,7 +102,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
                        </Grid>
                     </Grid>
                     <Grid>
-                      <PopUpMenu todoId={item._id} refreshTodos={refreshTodos} />
+                      <PopUpMenu todoId={item._id} refreshTodos={refreshTodos} snackOpen ={snackOpen} />
                     </Grid>
                   </Grid>
                 );

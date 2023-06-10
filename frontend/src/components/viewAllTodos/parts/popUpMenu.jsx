@@ -11,10 +11,18 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
-export function PopUpMenu({ todoId, refreshTodos }) {
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+export function PopUpMenu({ todoId, refreshTodos ,snackOpen}) {
   const [open, setOpen] = React.useState(false);
   const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [openSnack,setOpenSnack] = useState(false)
 
   const anchorRef = React.useRef(null);
 
@@ -22,20 +30,36 @@ export function PopUpMenu({ todoId, refreshTodos }) {
     setOpen((prevOpen) => !prevOpen);
   };
 
+  const handleCloseSnack = (event, reason)=>{
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleDelete = (event) => {
+    console.log("reached-----")
+    
     setOpenBackdrop(true);
     axios
       .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)
-      .then(() => {
-        refreshTodos();
+      .then(async () => { 
+        //  debugger;
+        // setOpenSnack(true);
+        refreshTodos(todoId); 
+        console.log("qweeeeeeeeeeeeeeeeeeee",openSnack)
         setOpen(false);
         setOpenBackdrop(false);
+        // setOpenSnack(true);
+        console.log("qweeeeeeeeeeeeeeeeeeee--->",openSnack)
       })
       .catch((err) => {
+       
         setOpenBackdrop(false);
         console.log(err);
       });
@@ -60,6 +84,14 @@ export function PopUpMenu({ todoId, refreshTodos }) {
 
   return (
     <>
+    {
+      console.log("-*-*-*----->",openSnack)
+    }
+     <Snackbar open={snackOpen}  autoHideDuration={100000} onClose={handleCloseSnack}>
+        <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openBackdrop}

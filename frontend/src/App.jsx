@@ -9,20 +9,38 @@ import axios from "axios";
 
 function App() {
   const [todos, setTodos] = useState(null);
+  const [snackOpen,setSnackOpen] = useState(false)
   
   useEffect(() => {
-    refreshTodos()
+    // refreshTodos()
+
+    axios
+    .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/view`)
+    .then((res) => {
+      setTodos(res.data.tasks);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }, []);
 
-  const refreshTodos = () => {
-    axios
-      .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/view`)
-      .then((res) => {
-        setTodos(res.data.tasks);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const refreshTodos = async(id) => {
+    //  return  setTodos(todos.filter((item)=>item._id !== id))
+    try{
+      const result  = await axios.get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/view`)
+      setTodos(result.data.tasks);
+      setSnackOpen(true)
+    }catch(err){
+      console.log(err);
+    }
+    // axios
+    //   .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/view`)
+    //   .then((res) => {
+    //     setTodos(res.data.tasks);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
   return (
     <Grid
@@ -48,7 +66,7 @@ function App() {
         <CreateTodo refreshTodos={refreshTodos} />
       </Grid>
       <Grid xs={12} sm={12} md={6} lg={5}>
-        <ViewAllTodos todos={todos} refreshTodos={refreshTodos} />
+        <ViewAllTodos todos={todos} snackOpen = {snackOpen} refreshTodos={refreshTodos} />
       </Grid>
     </Grid>
   );
