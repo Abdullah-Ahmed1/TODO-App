@@ -12,26 +12,11 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import MenuIcon from "@mui/icons-material/Menu";
 import axios from "axios";
-export function InputAccordion({ refreshTodos }) {
-  const [todo, setTodo] = useState("");
-  const [openBackdrop, setOpenBackdrop] = useState(false);
 
-  const handleSubmit = async () => {
-    const data = {
-      task: todo.trim(),
-      completed: false,
-      creationTime: new Date(),
-    };
-    try {
-      setOpenBackdrop(true);
-      setTodo("");
-      await axios.post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/create`, data);
-      await refreshTodos();
-      setOpenBackdrop(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
+export function InputAccordion({ refreshTodos, handleSubmit,todo,handleChangeTodo ,openBackdrop}) {
+  
+  
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSubmit();
@@ -61,7 +46,7 @@ export function InputAccordion({ refreshTodos }) {
             <Grid sx={{ width: "80%" }}>
               <TextField
                 value={todo}
-                onChange={(e) => setTodo(e.target.value)}
+                onChange={(e) => handleChangeTodo(e.target.value)}
                 onKeyPress={handleKeyPress}
                 id="standard-basic"
                 variant="standard"

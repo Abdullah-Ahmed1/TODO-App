@@ -11,90 +11,48 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export function PopUpMenu({ todoId, refreshTodos ,snackOpen}) {
-  const [open, setOpen] = React.useState(false);
-  const [openBackdrop, setOpenBackdrop] = useState(false);
-  const [openSnack,setOpenSnack] = useState(false)
+export function PopUpMenu({
+  todoId,
+  openBackDropDelete,
+  handleDelete,
+  openPopUp,
+  handleTogglePopUp,
+  handleClosePopUp,
+  handleListKeyDown,
+}) {
 
+  
   const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+  // const handleCloseSnack = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
 
-  const handleCloseSnack = (event, reason)=>{
-    if (reason === 'clickaway') {
-      return;
-    }
+  //   setOpenSnack(false);
+  // };
 
-    setOpenSnack(false);
-  }
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDelete = (event) => {
-    console.log("reached-----")
-    
-    setOpenBackdrop(true);
-    axios
-      .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)
-      .then(async () => { 
-        //  debugger;
-        // setOpenSnack(true);
-        refreshTodos(todoId); 
-        console.log("qweeeeeeeeeeeeeeeeeeee",openSnack)
-        setOpen(false);
-        setOpenBackdrop(false);
-        // setOpenSnack(true);
-        console.log("qweeeeeeeeeeeeeeeeeeee--->",openSnack)
-      })
-      .catch((err) => {
-       
-        setOpenBackdrop(false);
-        console.log(err);
-      });
-  };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    } else if (event.key === "Escape") {
-      setOpen(false);
-    }
-  }
-  const prevOpen = React.useRef(open);
+  const prevOpen = React.useRef(openPopUp);
   React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
+    if (prevOpen.current === true && openPopUp === false) {
       anchorRef.current.focus();
     }
 
-    prevOpen.current = open;
-  }, [open]);
+    prevOpen.current = openPopUp;
+  }, [openPopUp]);
 
   return (
     <>
-    {
-      console.log("-*-*-*----->",openSnack)
-    }
-     <Snackbar open={snackOpen}  autoHideDuration={100000} onClose={handleCloseSnack}>
-        <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-      </Snackbar>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={openBackdrop}
+        open={openBackDropDelete}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -102,15 +60,15 @@ export function PopUpMenu({ todoId, refreshTodos ,snackOpen}) {
         <IconButton
           ref={anchorRef}
           id="composition-button"
-          aria-controls={open ? "composition-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
+          aria-controls={openPopUp ? "composition-menu" : undefined}
+          aria-expanded={openPopUp ? "true" : undefined}
           aria-haspopup="true"
-          onClick={handleToggle}
+          onClick={handleTogglePopUp}
         >
           <DragIndicatorIcon />
         </IconButton>
         <Popper
-          open={open}
+          open={openPopUp}
           anchorEl={anchorRef.current}
           role={undefined}
           placement="bottom-start"
@@ -126,14 +84,16 @@ export function PopUpMenu({ todoId, refreshTodos ,snackOpen}) {
               }}
             >
               <Paper sx={{ backgroundColor: "white" }}>
-                <ClickAwayListener onClickAway={handleClose}>
+                <ClickAwayListener onClickAway={handleClosePopUp}>
                   <MenuList
-                    autoFocusItem={open}
+                    autoFocusItem={openPopUp}
                     id="composition-menu"
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    <MenuItem onClick={() => handleDelete(todoId)}>
+                      Delete
+                    </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
