@@ -18,10 +18,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export function PopUpMenu({
   todoId,
-  openBackDropDelete,
-  handleDelete,
   openPopUp,
+  handleDelete,
   handleListKeyDown,
+  openBackDropDelete,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const anchorRef = React.useRef(null);

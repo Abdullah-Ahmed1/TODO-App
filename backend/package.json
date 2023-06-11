@@ -4,7 +4,7 @@
   "description": "backend for todo app",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --setupFiles ./__test__/setupTests.js",
     "start": "nodemon index.js"
   },
   "author": "Abdullah Ahmed",

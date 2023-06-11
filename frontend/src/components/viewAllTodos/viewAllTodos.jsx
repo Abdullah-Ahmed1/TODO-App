@@ -84,7 +84,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
   };
 
   const handleDelete = (todoId) => {
-    setTodoTemp(todoTemp.filter((item) => item._id !== todoId));
+    setTodoTemp(todoTemp.filter((item) => item._id !== todoId));  
     setOpenBackdropDelete(true);
     axios
       .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)

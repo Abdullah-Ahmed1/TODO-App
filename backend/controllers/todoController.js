@@ -1,5 +1,4 @@
 const {
-  // getAllTasks,
   createTodo,
   removeTodo,
   searchTodo,

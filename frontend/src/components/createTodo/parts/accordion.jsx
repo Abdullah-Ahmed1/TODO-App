@@ -14,7 +14,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export function InputAccordion({handleSubmit,todo,handleChangeTodo ,openBackdrop}) {
   
-  
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSubmit();
@@ -28,7 +27,7 @@ export function InputAccordion({handleSubmit,todo,handleChangeTodo ,openBackdrop
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Accordion sx={{ backgroundColor: "rgba(255, 255, 255,0.3)" }}>
+      <Accordion sx={{ backgroundColor: "rgba(255, 255, 255,0.7)" }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
