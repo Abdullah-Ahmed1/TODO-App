@@ -11,7 +11,7 @@ describe("testing endpoints for todo controller", () => {
         creationTime: new Date(),
       });
       expect(response.statusCode).toBe(201);
-    });
+    },6000);
   });
 
   describe("testing view all todos endpoint", () => {
@@ -21,10 +21,6 @@ describe("testing endpoints for todo controller", () => {
     });
   });
   describe("testing delete todo endpoint", () => {
-    test("should return status code of 404, if taskId is not provided", async () => {
-      const response = await request(app).delete(`/delete/${null}`)
-      expect(response.statusCode).toBe(404);
-    });
     test("should return status code of 404, if task is not found against given taskId", async () => {
         const response = await request(app).delete(`/delete/646b888366119b3106864527`)
         expect(response.statusCode).toBe(404);

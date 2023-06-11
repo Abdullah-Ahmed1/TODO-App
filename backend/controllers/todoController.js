@@ -33,6 +33,7 @@ module.exports = {
   deleteTodo: async (req, res) => {
     try {
       const taskId = req.params.taskId;
+      console.log("------------------------------------*-->taskid is",taskId)
       if (!taskId)
         return res.status(400).send({
           message: "id should not be empty",

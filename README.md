@@ -18,3 +18,16 @@
  
  
  to run tests for backend , get into frontend dir and run 'npm test'
+
+# Environment Variables
+### .env
+ (mongodb Atlas)   
+ DATABASE_URL = "mongodb+srv://<username>:<password>@<cluster-address>/<database-name>?retryWrites=true&w=majority"
+ 
+ 
+ PORT = 5000   
+
+### .env.test
+(mongodb Atlas)   
+ DATABASE_URL = "mongodb+srv://<username>:<password>@<cluster-address>/<database-name>?retryWrites=true&w=majority"
+ 
