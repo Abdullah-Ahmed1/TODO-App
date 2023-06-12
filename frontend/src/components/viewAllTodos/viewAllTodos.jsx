@@ -45,6 +45,10 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
   const [openBackdropDelete, setOpenBackdropDelete] = useState(false);
   const [openBackdropComplete, setOpenBackdropComplete] = useState(false);
 
+  const[deleteSeverity,setDeleteSeverity] =useState(null)
+  const[msgDelete,setMsgDelete] =useState("null")
+
+
   const handleChange = (event, id) => {
     setOpenBackdropComplete(true);
     axios
@@ -89,12 +93,16 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
     axios
       .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)
       .then(async () => {
+        setMsgDelete("Todo Deleted Successfully")
+        setDeleteSeverity('success')
         setOpenSnackDelete(true);
-        // refreshTodos(todoId);
         setOpenPopUp(false);
         setOpenBackdropDelete(false);
       })
       .catch((err) => {
+        setMsgDelete("Something went wrong")
+        setDeleteSeverity('error')
+        setOpenSnackDelete(true);
         setOpenBackdrop(false);
         console.log(err);
       });
@@ -112,10 +120,10 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
       >
         <Alert
           onClose={handleCloseSnackDelete}
-          severity="success"
+          severity={deleteSeverity}
           sx={{ width: "100%" }}
         >
-          Todo Deleted Successfully
+          {msgDelete}
         </Alert>
       </Snackbar>
       <Backdrop

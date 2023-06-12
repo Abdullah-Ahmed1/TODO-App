@@ -19,6 +19,9 @@ function App() {
   const [todo, setTodo] = useState("");
   const [openBackdrop, setOpenBackdrop] = useState(false);
 
+  const [severityCreated,setSeverityCreated] =useState(null)
+const [msgCreated,setMsgCreated] =useState("")
+
   const handleChangeTodo = (value) => {
     setTodo(value);
   };
@@ -54,10 +57,15 @@ function App() {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/create`,
         data
       );
+
+      setMsgCreated("Todo Created successfully")
+      setSeverityCreated('success')
       setOpenSnack(true);
       await refreshTodos();
       setOpenBackdrop(false);
     } catch (err) {
+      setMsgCreated("Something went wrong")
+      setSeverityCreated('error')
       console.log(err);
     }
   };
@@ -82,10 +90,10 @@ function App() {
       >
         <Alert
           onClose={handleCloseSnack}
-          severity="success"
+          severity={severityCreated}
           sx={{ width: "100%" }}
         >
-          Todo Created successfully
+          {msgCreated}
         </Alert>
       </Snackbar>
       <Grid
