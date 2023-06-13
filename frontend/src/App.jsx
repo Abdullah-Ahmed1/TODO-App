@@ -71,7 +71,6 @@ function App() {
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/view`
       );
       setTodos(result.data.tasks);
-      setSnackOpen(true);
     } catch (err) {
       console.log(err);
     }

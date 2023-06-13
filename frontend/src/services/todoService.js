@@ -1,9 +1,10 @@
 import axios from "axios";
+import {config} from '../../config'
 export const todoService = {
   getTodo: async () => {
-    try {
+    try {    
       const todos = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/view`
+        `${config.baseUrl}/view`
       );
       return todos.data.tasks;
     } catch (err) {
@@ -13,7 +14,7 @@ export const todoService = {
   createTodo: async (data) => {
     try {
       await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/create`,
+        `${config.baseUrl}/create`,
         data
       );
     } catch (err) {
@@ -23,7 +24,7 @@ export const todoService = {
   completeTodo: async (event, id) => {
     try {
       return await axios.put(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/complete/${id}`,
+        `${config.baseUrl}/complete/${id}`,
         {
           completed: event.target.checked,
         }

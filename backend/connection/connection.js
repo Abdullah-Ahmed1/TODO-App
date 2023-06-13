@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const config = require('../config')
 try{
     mongoose.connect(
-        process.env.DATABASE_URL,
+        config.dbUrl,
         { useNewUrlParser: true },
         
       );
