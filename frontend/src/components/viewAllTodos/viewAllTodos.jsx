@@ -10,6 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Grid from "@mui/material/Unstable_Grid2";
 import MuiCheckbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
+import { todoService } from "../../services/todoService";
 import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -45,17 +46,14 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
   const [openBackdropDelete, setOpenBackdropDelete] = useState(false);
   const [openBackdropComplete, setOpenBackdropComplete] = useState(false);
 
-  const[deleteSeverity,setDeleteSeverity] =useState(null)
-  const[msgDelete,setMsgDelete] =useState("null")
-
+  const [deleteSeverity, setDeleteSeverity] = useState(null);
+  const [msgDelete, setMsgDelete] = useState("null");
 
   const handleChange = (event, id) => {
     setOpenBackdropComplete(true);
-    axios
-      .put(`${import.meta.env.VITE_REACT_APP_BASE_URL}/complete/${id}`, {
-        completed: event.target.checked,
-      })
-      .then((res) => {
+
+    const todoComplete = todoService.completeTodo(event,id)
+    todoComplete.then((res) => {
         refreshTodos();
         setOpenBackdropComplete(false);
       })
@@ -88,20 +86,20 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
   };
 
   const handleDelete = (todoId) => {
-    setTodoTemp(todoTemp.filter((item) => item._id !== todoId));  
+    setTodoTemp(todoTemp.filter((item) => item._id !== todoId));
     setOpenBackdropDelete(true);
-    axios
-      .delete(`${import.meta.env.VITE_REACT_APP_BASE_URL}/delete/${todoId}`)
-      .then(async () => {
-        setMsgDelete("Todo Deleted Successfully")
-        setDeleteSeverity('success')
+    const deleteTodo = todoService.deleteTodo(todoId);
+    deleteTodo
+      .then(() => {
+        setMsgDelete("Todo Deleted Successfully");
+        setDeleteSeverity("success");
         setOpenSnackDelete(true);
         setOpenPopUp(false);
         setOpenBackdropDelete(false);
       })
       .catch((err) => {
-        setMsgDelete("Something went wrong")
-        setDeleteSeverity('error')
+        setMsgDelete("Something went wrong");
+        setDeleteSeverity("error");
         setOpenSnackDelete(true);
         setOpenBackdrop(false);
         console.log(err);

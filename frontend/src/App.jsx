@@ -8,6 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Grid from "@mui/material/Unstable_Grid2";
 import { CreateTodo } from "./components/createTodo";
 import { ViewAllTodos } from "./components/viewAllTodos";
+import { todoService } from "./services/todoService";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -18,9 +19,8 @@ function App() {
   const [openSnack, setOpenSnack] = useState(false);
   const [todo, setTodo] = useState("");
   const [openBackdrop, setOpenBackdrop] = useState(false);
-
-  const [severityCreated,setSeverityCreated] =useState(null)
-const [msgCreated,setMsgCreated] =useState("")
+  const [severityCreated, setSeverityCreated] = useState(null);
+  const [msgCreated, setMsgCreated] = useState("");
 
   const handleChangeTodo = (value) => {
     setTodo(value);
@@ -29,19 +29,14 @@ const [msgCreated,setMsgCreated] =useState("")
     if (reason === "clickaway") {
       return;
     }
-
     setOpenSnack(false);
   };
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_REACT_APP_BASE_URL}/view`)
-      .then((res) => {
-        setTodos(res.data.tasks);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const todos = todoService.getTodo();
+    todos.then((data) => {
+      setTodos(data);
+    });
   }, []);
 
   const handleSubmit = async () => {
@@ -50,24 +45,24 @@ const [msgCreated,setMsgCreated] =useState("")
       completed: false,
       creationTime: new Date(),
     };
-    try {
-      setOpenBackdrop(true);
-      setTodo("");
-      await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/create`,
-        data
-      );
 
-      setMsgCreated("Todo Created successfully")
-      setSeverityCreated('success')
-      setOpenSnack(true);
-      await refreshTodos();
-      setOpenBackdrop(false);
-    } catch (err) {
-      setMsgCreated("Something went wrong")
-      setSeverityCreated('error')
-      console.log(err);
-    }
+    setOpenBackdrop(true);
+    setTodo("");
+
+    const createTodo = todoService.createTodo(data);
+    createTodo
+      .then(async () => {
+        setMsgCreated("Todo Created successfully");
+        setSeverityCreated("success");
+        setOpenSnack(true);
+        await refreshTodos();
+        setOpenBackdrop(false);
+      })
+      .catch(() => {
+        setMsgCreated("Something went wrong");
+        setSeverityCreated("error");
+        console.log(err);
+      });
   };
 
   const refreshTodos = async () => {
