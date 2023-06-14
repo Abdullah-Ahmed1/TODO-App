@@ -39,13 +39,12 @@ function Checkbox({ icon, checkedIcon, checked, handleChange }) {
   );
 }
 
-export const ViewAllTodos = ({ todos, refreshTodos }) => {
+export const ViewAllTodos = ({ todos, refreshTodos,newTodo}) => {
   const [todoTemp, setTodoTemp] = useState(null);
   const [openPopUp, setOpenPopUp] = React.useState(false);
   const [openSnackDelete, setOpenSnackDelete] = useState(false);
   const [openBackdropDelete, setOpenBackdropDelete] = useState(false);
   const [openBackdropComplete, setOpenBackdropComplete] = useState(false);
-
   const [deleteSeverity, setDeleteSeverity] = useState(null);
   const [msgDelete, setMsgDelete] = useState("null");
 
@@ -106,7 +105,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
       });
   };
   useEffect(() => {
-    setTodoTemp(todos);
+    setTodoTemp(todos && todos.reverse());
   }, [todos]);
 
   return (
@@ -142,7 +141,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
           scrollbarWidth: "thin",
         }}
       >
-        <Grid container flexDirection={"column"} sx={{ color: "black" }}>
+        <Grid container flexDirection={"column"} sx={{ color: "black",margin:  0,padding : 0 }}>
           {todoTemp ? (
             todoTemp.length > 0 ? (
               todoTemp.map((item, index) => {
@@ -153,7 +152,7 @@ export const ViewAllTodos = ({ todos, refreshTodos }) => {
                     container
                     justifyContent={"space-between"}
                     alignItems={"center"}
-                    sx={{ padding: "10px 0px" }}
+                    sx={{ padding: "10px 0px",margin:0,backgroundColor: `${newTodo && index ==0? 'rgb(46, 125, 50,0.5)': 'transparent'}` }}
                   >
                     <Grid container alignItems={"center"}>
                       <Grid>
