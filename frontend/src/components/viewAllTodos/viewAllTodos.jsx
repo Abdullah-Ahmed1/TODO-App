@@ -84,13 +84,23 @@ export const ViewAllTodos = ({ todos, refreshTodos,newTodo}) => {
     setOpenSnackDelete(false);
   };
 
+  function formatDateTime(date) {
+    const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   const handleDelete = (todoId) => {
     setTodoTemp(todoTemp.filter((item) => item._id !== todoId));
     setOpenBackdropDelete(true);
     const deleteTodo = todoService.deleteTodo(todoId);
     deleteTodo
       .then(() => {
-        console.log("**************************************----")
         setMsgDelete("Todo Deleted Successfully");
         setDeleteSeverity("success");
         setOpenSnackDelete(true);
@@ -168,6 +178,9 @@ export const ViewAllTodos = ({ todos, refreshTodos,newTodo}) => {
                       </Grid>
                       <Grid>
                         <Typography>{item.task}</Typography>
+                      </Grid>
+                      <Grid sx = {{marginLeft:"80px"}}>
+                        <Typography>{item.completed ? `Completion Time: ${formatDateTime(new Date(item.completedTime))} `:`Creation Time: ${formatDateTime(new Date(item.creationTime))}`}</Typography>
                       </Grid>
                     </Grid>
                     <Grid>

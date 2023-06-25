@@ -42,7 +42,6 @@ export function PopUpMenu({
 
   React.useEffect(() => {
     if (!openPopUp) {
-      console.log("reached-----")
       setMenuOpen(false);
     }
   }, [openPopUp]);
