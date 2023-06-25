@@ -4,10 +4,15 @@ const {
   searchTodo,
   updateTodoCompleted,
   getAllTodos,
+  searchTodoByTitle
 } = require("../services/todoService");
 module.exports = {
   createTodo: async(req, res) => {
     try {
+      const searchedTodo = await searchTodoByTitle(req.body.task)
+      if(searchedTodo)return  res.status(400).send({
+        message: "Task already exist",
+      });
       await createTodo(req.body);
       return res.status(201).send({
         message: "Task created successfully",

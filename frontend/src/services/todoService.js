@@ -13,12 +13,13 @@ export const todoService = {
   },
   createTodo: async (data) => {
     try {
-      await axios.post(
+     return await axios.post(
         `${config.baseUrl}/create`,
         data
       );
     } catch (err) {
-      console.log(err);
+      console.log("------------------------",err);
+       throw new Error(err.response.data.message)
     }
   },
   completeTodo: async (event, id) => {

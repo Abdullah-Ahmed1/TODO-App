@@ -7,6 +7,15 @@ module.exports = {
       console.log(err);
     }
   },
+  searchTodoByTitle : async(title)=>{
+    try{
+      const searchedTodo = await Todo.findOne({task : title})
+      console.log(searchedTodo)
+      return searchedTodo
+    }catch(err){
+      console.log(err)
+    }
+  },
 
   getAllTodos: async () => {
     try {

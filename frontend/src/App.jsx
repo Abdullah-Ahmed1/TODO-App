@@ -21,8 +21,7 @@ function App() {
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [severityCreated, setSeverityCreated] = useState(null);
   const [msgCreated, setMsgCreated] = useState("");
-  const [newTodo,setNewTodo] = useState(false)
-  
+  const [newTodo, setNewTodo] = useState(false);
 
   const handleChangeTodo = (value) => {
     setTodo(value);
@@ -37,7 +36,6 @@ function App() {
   useEffect(() => {
     const todos = todoService.getTodo();
     todos.then((data) => {
-      
       setTodos(data);
     });
   }, []);
@@ -52,24 +50,21 @@ function App() {
     setOpenBackdrop(true);
     setTodo("");
 
-    const createTodo = todoService.createTodo(data);
-    createTodo
-      .then(async () => {
-        setMsgCreated("Todo Created successfully");
-        setSeverityCreated("success");
-        setOpenSnack(true);
-        await refreshTodos();
-        setOpenBackdrop(false);
-        setNewTodo(true)
-      setTimeout(()=>{
-        setNewTodo(false)
-      },1000)
-      })
-      .catch(() => {
-        setMsgCreated("Something went wrong");
-        setSeverityCreated("error");
-        console.log(err);
-      });
+    try {
+      const createTodo = await todoService.createTodo(data);
+      setMsgCreated("Todo Created successfully");
+      setSeverityCreated("success");
+      setOpenSnack(true);
+      await refreshTodos();
+      setOpenBackdrop(false);
+      setNewTodo(true);
+    } catch (err) {
+      setOpenBackdrop(false);
+      setMsgCreated(err.toString());
+      setSeverityCreated("error");
+      setOpenSnack(true);
+    }
+
   };
 
   const refreshTodos = async () => {
@@ -125,7 +120,11 @@ function App() {
           />
         </Grid>
         <Grid xs={12} sm={12} md={6} lg={5}>
-          <ViewAllTodos todos={todos} refreshTodos={refreshTodos} newTodo={newTodo} />
+          <ViewAllTodos
+            todos={todos}
+            refreshTodos={refreshTodos}
+            newTodo={newTodo}
+          />
         </Grid>
       </Grid>
     </>

@@ -20,10 +20,11 @@ export function PopUpMenu({
   todoId,
   openPopUp,
   handleDelete,
+  handleTogglePopUp,
   handleListKeyDown,
   openBackDropDelete,
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(openPopUp);
   const anchorRef = React.useRef(null);
 
   const handleClose = (event) => {
@@ -36,10 +37,12 @@ export function PopUpMenu({
 
   const handleToggle = () => {
     setMenuOpen((prevOpen) => !prevOpen);
+    handleTogglePopUp()
   };
 
   React.useEffect(() => {
     if (!openPopUp) {
+      console.log("reached-----")
       setMenuOpen(false);
     }
   }, [openPopUp]);

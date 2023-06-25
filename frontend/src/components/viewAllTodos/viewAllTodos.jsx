@@ -41,7 +41,7 @@ function Checkbox({ icon, checkedIcon, checked, handleChange }) {
 
 export const ViewAllTodos = ({ todos, refreshTodos,newTodo}) => {
   const [todoTemp, setTodoTemp] = useState(null);
-  const [openPopUp, setOpenPopUp] = React.useState(false);
+  const [openPopUp, setOpenPopUp] = useState(false);
   const [openSnackDelete, setOpenSnackDelete] = useState(false);
   const [openBackdropDelete, setOpenBackdropDelete] = useState(false);
   const [openBackdropComplete, setOpenBackdropComplete] = useState(false);
@@ -90,6 +90,7 @@ export const ViewAllTodos = ({ todos, refreshTodos,newTodo}) => {
     const deleteTodo = todoService.deleteTodo(todoId);
     deleteTodo
       .then(() => {
+        console.log("**************************************----")
         setMsgDelete("Todo Deleted Successfully");
         setDeleteSeverity("success");
         setOpenSnackDelete(true);
