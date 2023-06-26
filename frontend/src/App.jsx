@@ -58,6 +58,9 @@ function App() {
       await refreshTodos();
       setOpenBackdrop(false);
       setNewTodo(true);
+      setTimeout(()=>{
+        setNewTodo(false);
+      },5000)
     } catch (err) {
       setOpenBackdrop(false);
       setMsgCreated(err.toString());
